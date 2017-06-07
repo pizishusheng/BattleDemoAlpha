@@ -63,8 +63,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     
-    auto scene = HelloWorld::createScene();
-    //auto scene = BattleScene::create();
+    //auto scene = HelloWorld::createScene();
+    auto scene = BattleScene::create();
     Scene::createWithPhysics();
     // run
     director->runWithScene(scene);

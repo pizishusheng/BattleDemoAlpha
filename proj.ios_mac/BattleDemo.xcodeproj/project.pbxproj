@@ -19,7 +19,6 @@
 		2B4893581D3CE2DF007FA4BE /* hero in Resources */ = {isa = PBXBuildFile; fileRef = 2B4893571D3CE2DE007FA4BE /* hero */; };
 		2B48935C1D3DCE27007FA4BE /* BaseMan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B48935A1D3DCE27007FA4BE /* BaseMan.cpp */; };
 		2BEBDF8E1DDD518A003B3F88 /* DrawSector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BEBDF8C1DDD518A003B3F88 /* DrawSector.cpp */; };
-		2BF3B6BC1D3F158E00FC0FAB /* Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BF3B6BA1D3F158E00FC0FAB /* Utils.cpp */; };
 		3EACC98F19EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
 		3EACC99019EE6D4300EB3C5E /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3EACC98E19EE6D4300EB3C5E /* res */; };
 		46880B7B19C43A67006E1F66 /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7619C43A67006E1F66 /* CloseNormal.png */; };
@@ -135,8 +134,6 @@
 		2B48935B1D3DCE27007FA4BE /* BaseMan.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BaseMan.hpp; path = Modles/BaseMan.hpp; sourceTree = "<group>"; };
 		2BEBDF8C1DDD518A003B3F88 /* DrawSector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DrawSector.cpp; sourceTree = "<group>"; };
 		2BEBDF8D1DDD518A003B3F88 /* DrawSector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = DrawSector.hpp; sourceTree = "<group>"; };
-		2BF3B6BA1D3F158E00FC0FAB /* Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utils.cpp; sourceTree = "<group>"; };
-		2BF3B6BB1D3F158E00FC0FAB /* Utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Utils.hpp; sourceTree = "<group>"; };
 		3EACC98E19EE6D4300EB3C5E /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 		46880B7619C43A67006E1F66 /* CloseNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseNormal.png; sourceTree = "<group>"; };
 		46880B7719C43A67006E1F66 /* CloseSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloseSelected.png; sourceTree = "<group>"; };
@@ -347,8 +344,6 @@
 				2B4893451D34CDE3007FA4BE /* BattleScene.hpp */,
 				2B48934B1D3732DA007FA4BE /* BattleLayer.cpp */,
 				2B48934C1D3732DA007FA4BE /* BattleLayer.hpp */,
-				2BF3B6BA1D3F158E00FC0FAB /* Utils.cpp */,
-				2BF3B6BB1D3F158E00FC0FAB /* Utils.hpp */,
 				2BEBDF8C1DDD518A003B3F88 /* DrawSector.cpp */,
 				2BEBDF8D1DDD518A003B3F88 /* DrawSector.hpp */,
 			);
@@ -563,7 +558,6 @@
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 				2B48935C1D3DCE27007FA4BE /* BaseMan.cpp in Sources */,
-				2BF3B6BC1D3F158E00FC0FAB /* Utils.cpp in Sources */,
 				2B4893461D34CDE3007FA4BE /* BattleScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				2BEBDF8E1DDD518A003B3F88 /* DrawSector.cpp in Sources */,

@@ -10,7 +10,6 @@
 #include "editor-support/cocostudio/CCArmatureDataManager.h"
 #include "editor-support/cocostudio/CCArmature.h"
 #include "Modles/BaseMan.hpp"
-#include "Utils.hpp"
 #include <stdio.h>
 #include "DrawSector.hpp"
 USING_NS_CC;
