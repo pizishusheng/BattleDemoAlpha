@@ -189,6 +189,8 @@ bool BaseMan::checkIsPengzhuang()
     float ry = min(rect1.getMaxY() , rect2.getMaxY() );
     
     //判断是否能构成小矩形
-    if( lx > rx || ly > ry ) return false; //矩形不相交
-    else                     return true;  //发生碰撞
+    if( lx > rx || ly > ry )
+        return false; //矩形不相交
+    else
+        return true;  //发生碰撞
 }
