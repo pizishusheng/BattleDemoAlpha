@@ -20,7 +20,6 @@ public:
     ~BattleLayer();
     
     static BattleLayer* create();
-    void initSector();
 private:
     bool init() override;
     void initHero();

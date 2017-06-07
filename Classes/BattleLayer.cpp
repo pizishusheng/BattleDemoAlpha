@@ -64,8 +64,6 @@ bool BattleLayer::init()
     auto menu = Menu::create(closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
-    
-    initSector();
 
     return true;
 }
@@ -95,27 +93,6 @@ void BattleLayer::initEnemy()
     }
     m_hero->checkAttackTarget(m_enemyVector);
     m_hero->setActionState(ACTION_WALK);
-}
-
-void BattleLayer::initSector()
-{
-    auto drawNode = DrawSector::create();
-    float radian[] = { 60.0f, 60.0f, 60.0f, 60.0f, 60.0f, 60.0f };
-    //扇形半径
-    float RADIUS = 300.0f;
-    //坐标偏移量
-    float beginVec = 0.0f;
-    //字体偏移量
-    float middleVec = 0.0f;
-    //旋转字体
-    float rotation = 0.0f;
-    //颜色
-    float r = rand_0_1();
-    float g = rand_0_1();
-    float b = rand_0_1();
-    
-    drawNode->drawSolidSector(Vec2(100, 100), Vec2(sin(beginVec), cosf(beginVec)), RADIUS, 0, radian[0] * M_PI / 180.0f, 200, Color4F(r, g, b, 1));
-    this->addChild(drawNode, 88);
 }
 
 void BattleLayer::changeHeroState()
