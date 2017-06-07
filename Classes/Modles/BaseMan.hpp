@@ -31,18 +31,21 @@ public:
     BaseMan();
     ~BaseMan();
     
-    static BaseMan* createWithFile(std::string fileName);
-    virtual void setPosition(const cocos2d::Vec2 &position);
+    static BaseMan* createWithFile(std::string filePath, string fileArmature);
+    virtual void setPositionss(const cocos2d::Vec2 &position);
     void onEnter();
     void onExit();
     void update(float dt);
     void setActionState(ActionState state);
+    Armature *getArmature();
+    void checkAttackTarget(vector<BaseMan*> targetVector);
 protected:
-    virtual bool initWithFile(std::string fileName);
+    virtual bool initWithFile(std::string filePath, string fileArmature);
     virtual void playAnimationByActionState(ActionState state);
     void actionWalk();
     void actionAttack();
-    void checkAttackTarget(vector<BaseMan*> targetVector);
+    bool checkIsPengzhuang();
+    void updatePosition();
 protected:
     Armature *m_armature;
     ActionState m_state;

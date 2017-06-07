@@ -22,10 +22,10 @@ BaseMan::~BaseMan()
     
 }
 
-BaseMan* BaseMan::createWithFile(std::string fileName)
+BaseMan* BaseMan::createWithFile(std::string filePath, string fileArmature)
 {
     BaseMan *pRet = new BaseMan();
-    if (pRet && pRet->initWithFile(fileName)) {
+    if (pRet && pRet->initWithFile(filePath, fileArmature)) {
         pRet->autorelease();
         return pRet;
     }
@@ -34,27 +34,32 @@ BaseMan* BaseMan::createWithFile(std::string fileName)
     return nullptr;
 }
 
-bool BaseMan::initWithFile(std::string fileName)
+bool BaseMan::initWithFile(std::string filePath, string fileArmature)
 {
-    ArmatureDataManager::getInstance()->addArmatureFileInfo(fileName+".png", fileName+".plist", fileName+".xml");
-    m_armature = Armature::create( "hero1001");
-    
+    ArmatureDataManager::getInstance()->addArmatureFileInfo(filePath+".png", filePath+".plist", filePath+".xml");
+    m_armature = Armature::create(fileArmature);
     m_armature->getAnimation()->setSpeedScale(0.7f);
     this->addChild(m_armature);
+    this->setContentSize(m_armature->getContentSize());
     return true;
 }
 
-void BaseMan::setPosition(const cocos2d::Vec2 &position)
+void BaseMan::setPositionss(const cocos2d::Vec2 &position)
 {
     if (m_armature == nullptr)
         return;
-    
-    m_armature->setPosition(position);
+    setPosition(position);
+    //m_armature->setPosition(position);
 }
 
 void BaseMan::setActionState(ActionState state)
 {
     m_state = state;
+}
+
+Armature* BaseMan::getArmature()
+{
+    return m_armature == nullptr?nullptr:m_armature;
 }
 
 void BaseMan::playAnimationByActionState(ActionState state)
@@ -114,12 +119,27 @@ void BaseMan::onExit()
 void BaseMan::update(float dt)
 {
     playAnimationByActionState(m_state);
+    
 }
 
 void BaseMan::actionWalk()
 {
-    auto move = MoveTo::create(5.0f, Vec2(0,0));
-    m_armature->runAction(move);
+    if (m_attackTarget == nullptr)
+        return;
+    
+    auto move = MoveTo::create(3.0f, Vec2(m_attackTarget->getPositionX(), m_attackTarget->getPositionY()));
+    auto callback = CallFunc::create([&](){
+        m_state = ACTION_ATTACK;
+    });
+    this->runAction(Sequence::create(move, callback,NULL));
+}
+
+void BaseMan::updatePosition()
+{
+    if (checkIsPengzhuang()) {
+        this->stopAllActions();
+        m_state =ACTION_ATTACK;
+    }
 }
 
 void BaseMan::actionAttack()
@@ -136,7 +156,15 @@ void BaseMan::checkAttackTarget(vector<BaseMan *> targetVector)
     float distance = 0;
     for (auto target: targetVector)
     {
-        float temp = sqrt(pow(abs(target->getPositionX() - this->getPositionX()), abs(target->getPositionY() - this->getPositionY())));
+        float x = abs(target->getPositionX() - this->getPositionX());
+        float y = abs(target->getPositionY() - this->getPositionY());
+        float powx = pow(x, 2);
+        float powy = pow(y, 2);
+        float temp = sqrt(powx + powy);
+        if (m_attackTarget == nullptr) {
+            m_attackTarget = target;
+            distance = temp;
+        }
         
         if (temp < distance)
         {
@@ -144,4 +172,23 @@ void BaseMan::checkAttackTarget(vector<BaseMan *> targetVector)
             m_attackTarget = target;
         }
     }
+    
+}
+
+bool BaseMan::checkIsPengzhuang()
+{
+    if (m_attackTarget == nullptr)
+        return false;
+    
+    Rect rect1 = m_attackTarget->getBoundingBox();
+    Rect rect2 = this->getBoundingBox();
+    float lx = max(rect1.getMinX() , rect2.getMinX() );
+    float ly = max(rect1.getMinY() , rect2.getMinY() );
+    
+    float rx = min(rect1.getMaxX() , rect2.getMaxX() );
+    float ry = min(rect1.getMaxY() , rect2.getMaxY() );
+    
+    //判断是否能构成小矩形
+    if( lx > rx || ly > ry ) return false; //矩形不相交
+    else                     return true;  //发生碰撞
 }

@@ -20,12 +20,15 @@ public:
     ~BattleLayer();
     
     static BattleLayer* create();
+    void initSector();
 private:
     bool init() override;
     void initHero();
+    void initEnemy();
     void changeHeroState();
 private:
     BaseMan *m_hero;
+    std::vector<BaseMan*> m_enemyVector;
 };
 
 #endif /* BattleLayer_hpp */
