@@ -54,8 +54,9 @@ bool BattleLayer::init()
     
     m_enemyVector.reserve(20);
     
-    initHero();
     initEnemy();
+    
+    initHero();
     auto closeItem = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_0(BattleLayer::changeHeroState, this));
     closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
                                 origin.y + closeItem->getContentSize().height/2));
@@ -74,6 +75,11 @@ void BattleLayer::initHero()
     m_hero = BaseMan::createWithFile(path, "hero1001");
     m_hero->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
     this->addChild(m_hero, 99);
+    
+    if (!m_enemyVector.empty()) {
+        m_hero->checkAttackTarget(m_enemyVector);
+        m_hero->setActionState(ACTION_WALK);
+    }
 }
 
 void BattleLayer::initEnemy()
@@ -90,11 +96,9 @@ void BattleLayer::initEnemy()
         this->addChild(enemy, 99);
         m_enemyVector.push_back(enemy);
     }
-    m_hero->checkAttackTarget(m_enemyVector);
-    m_hero->setActionState(ACTION_WALK);
 }
 
 void BattleLayer::changeHeroState()
 {
-    m_hero->setActionState(ACTION_GET_HURT);
+    m_hero->setActionState(ACTION_SKILL);
 }

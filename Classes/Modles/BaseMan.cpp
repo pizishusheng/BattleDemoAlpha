@@ -13,13 +13,14 @@ using namespace cocos2d;
 
 BaseMan::BaseMan()
 :m_state(ACTION_IDLE),
-m_isPlayState(1)
+m_isPlayState(1),
+m_attackTarget(nullptr)
 {
 }
 
 BaseMan::~BaseMan()
 {
-    
+    log("BaseMan constructor");
 }
 
 BaseMan* BaseMan::createWithFile(std::string filePath, string fileArmature)
@@ -59,7 +60,7 @@ void BaseMan::setActionState(ActionState state)
 
 Armature* BaseMan::getArmature()
 {
-    return m_armature == nullptr?nullptr:m_armature;
+    return m_armature == nullptr? nullptr : m_armature;
 }
 
 void BaseMan::playAnimationByActionState(ActionState state)
@@ -67,9 +68,8 @@ void BaseMan::playAnimationByActionState(ActionState state)
     if (m_armature == nullptr && m_armature->getAnimation() == nullptr)
         return;
     
-    if (state == m_isPlayState) 
+    if (state == m_isPlayState)
         return;
-    
     
     switch (state) {
         case ACTION_IDLE:
@@ -88,6 +88,13 @@ void BaseMan::playAnimationByActionState(ActionState state)
         case ACTION_ATTACK:
         {
             m_armature->getAnimation()->play("attack");
+            m_state = ACTION_IDLE;
+            m_isPlayState = ACTION_IDLE;
+        }
+            break;
+        case ACTION_SKILL:
+        {
+            m_armature->getAnimation()->play("skill");
             m_state = ACTION_IDLE;
             m_isPlayState = ACTION_IDLE;
         }
@@ -119,7 +126,6 @@ void BaseMan::onExit()
 void BaseMan::update(float dt)
 {
     playAnimationByActionState(m_state);
-    
 }
 
 void BaseMan::actionWalk()
@@ -149,30 +155,32 @@ void BaseMan::actionAttack()
 
 void BaseMan::checkAttackTarget(vector<BaseMan *> targetVector)
 {
-    if (m_attackTarget != nullptr) {
+    if (m_attackTarget != nullptr) 
         return;
-    }
     
-    float distance = 0;
+    float min_distance = -1;
+    BaseMan *temp_target = nullptr;
     for (auto target: targetVector)
     {
         float x = abs(target->getPositionX() - this->getPositionX());
         float y = abs(target->getPositionY() - this->getPositionY());
         float powx = pow(x, 2);
         float powy = pow(y, 2);
-        float temp = sqrt(powx + powy);
-        if (m_attackTarget == nullptr) {
-            m_attackTarget = target;
-            distance = temp;
+        float distance = sqrt(powx + powy);
+        
+        if (min_distance == -1){
+            min_distance = distance;
+            temp_target = target;
+            continue;
         }
         
-        if (temp < distance)
+        if (distance < min_distance)
         {
-            distance = temp;
-            m_attackTarget = target;
+            min_distance = distance;
+            temp_target = target;
         }
     }
-    
+    m_attackTarget = temp_target;
 }
 
 bool BaseMan::checkIsPengzhuang()

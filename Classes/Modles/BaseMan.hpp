@@ -44,6 +44,7 @@ protected:
     virtual void playAnimationByActionState(ActionState state);
     void actionWalk();
     void actionAttack();
+    void actionSkill();
     bool checkIsPengzhuang();
     void updatePosition();
 protected:
