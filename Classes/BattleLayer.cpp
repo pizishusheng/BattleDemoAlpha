@@ -46,7 +46,7 @@ bool BattleLayer::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("battlescene_grassland.plist");
     
-    //auto bg = Sprite::createWithSpriteFrameName("battle_bg.png");
+    //auto bg = Sprite::createWithSpriteFrameName("battle_bg.png");ss
     auto bg = Sprite::create("battlescene_grassland.png");
     bg->setPosition(Vec2(origin.x + visibleSize.width/2,
                          origin.y + visibleSize.height/2));
