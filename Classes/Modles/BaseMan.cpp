@@ -39,7 +39,8 @@ bool BaseMan::initWithFile(std::string filePath, string fileArmature)
 {
     ArmatureDataManager::getInstance()->addArmatureFileInfo(filePath+".png", filePath+".plist", filePath+".xml");
     m_armature = Armature::create(fileArmature);
-    m_armature->getAnimation()->setSpeedScale(0.7f);
+    m_armature->getAnimation()->setSpeedScale(0.3f);
+    m_armature->setAnchorPoint(Vec2(0.5, 0.5));
     this->addChild(m_armature);
     this->setContentSize(m_armature->getContentSize());
     return true;
@@ -87,9 +88,8 @@ void BaseMan::playAnimationByActionState(ActionState state)
             break;
         case ACTION_ATTACK:
         {
-            m_armature->getAnimation()->play("attack");
-            m_state = ACTION_IDLE;
-            m_isPlayState = ACTION_IDLE;
+            m_armature->getAnimation()->play("attack", -1, 1);
+            m_isPlayState = state;
         }
             break;
         case ACTION_SKILL:
@@ -126,6 +126,8 @@ void BaseMan::onExit()
 void BaseMan::update(float dt)
 {
     playAnimationByActionState(m_state);
+    if (m_state == ACTION_WALK)
+        updatePosition();
 }
 
 void BaseMan::actionWalk()
@@ -190,15 +192,18 @@ bool BaseMan::checkIsPengzhuang()
     
     Rect rect1 = m_attackTarget->getBoundingBox();
     Rect rect2 = this->getBoundingBox();
-    float lx = max(rect1.getMinX() , rect2.getMinX() );
-    float ly = max(rect1.getMinY() , rect2.getMinY() );
+    bool collision = rect2.intersectsRect(rect1);
+    return collision;
     
-    float rx = min(rect1.getMaxX() , rect2.getMaxX() );
-    float ry = min(rect1.getMaxY() , rect2.getMaxY() );
-    
-    //判断是否能构成小矩形
-    if( lx > rx || ly > ry )
-        return false; //矩形不相交
-    else
-        return true;  //发生碰撞
+//    float lx = max(rect1.getMinX() , rect2.getMinX() );
+//    float ly = max(rect1.getMinY() , rect2.getMinY() );
+//    
+//    float rx = min(rect1.getMaxX() , rect2.getMaxX() );
+//    float ry = min(rect1.getMaxY() , rect2.getMaxY() );
+//    
+//    //判断是否能构成小矩形
+//    if( lx > rx || ly > ry )
+//        return false; //矩形不相交
+//    else
+//        return true;  //发生碰撞
 }

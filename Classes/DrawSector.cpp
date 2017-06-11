@@ -58,3 +58,17 @@ void DrawSector::drawSolidSector(const Vec2 &orign,const Vec2 &beginVec, const f
     CC_SAFE_DELETE_ARRAY(vertices2);
     CC_SAFE_DELETE_ARRAY(triangles);
 }
+
+void DrawSector::drawRectangle(cocos2d::Vec2 position, cocos2d::Size contentSize)
+{
+    float half_width = contentSize.width / 2;
+    float half_height = contentSize.height / 2;
+    
+    Vec2 leftBottom = Vec2(position.x - half_width, position.y - half_height);
+    Vec2 leftTop = Vec2(position.x - half_width, position.y + half_height);
+    Vec2 rightBottom = Vec2(position.x + half_width, position.y - half_height);
+    Vec2 rightTop = Vec2(position.x + half_width, position.y + half_height);
+    
+    this->drawRect(leftBottom, leftTop, rightBottom, rightTop, Color4F::RED);
+    
+}

@@ -23,6 +23,8 @@ public:
      **/
     CREATE_FUNC(DrawSector);
     void drawSolidSector(const Vec2 &orign,const Vec2 &beginVec, const float radius1, const float radius2, const float radian, const int segments, const cocos2d::Color4F &color);
+    
+    void drawRectangle(Vec2 position, Size contentSize);
 };
 
 #endif /* DrawSector_hpp */

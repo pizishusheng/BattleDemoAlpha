@@ -46,7 +46,6 @@ bool BattleLayer::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("battlescene_grassland.plist");
     
-    //auto bg = Sprite::createWithSpriteFrameName("battle_bg.png");ss
     auto bg = Sprite::create("battlescene_grassland.png");
     bg->setPosition(Vec2(origin.x + visibleSize.width/2,
                          origin.y + visibleSize.height/2));
@@ -58,21 +57,26 @@ bool BattleLayer::init()
     
     initHero();
     auto closeItem = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_0(BattleLayer::changeHeroState, this));
+    closeItem->setAnchorPoint(Vec2(0.5f, 0.5));
     closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
                                 origin.y + closeItem->getContentSize().height/2));
     
     auto menu = Menu::create(closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
-
+    
+//    DrawSector *rect = DrawSector::create();
+//    rect->drawRectangle(m_hero->getPosition(), m_hero->getContentSize());
+//    this->addChild(rect);
+    
     return true;
 }
 
 void BattleLayer::initHero()
 {
     auto visibleSize = Director::getInstance()->getVisibleSize();
-    string path = "hero/hero1001_output/hero1001";
-    m_hero = BaseMan::createWithFile(path, "hero1001");
+    string path = "hero/hero2001_output/hero2001";
+    m_hero = BaseMan::createWithFile(path, "hero2001");
     m_hero->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
     this->addChild(m_hero, 99);
     
@@ -93,7 +97,13 @@ void BattleLayer::initEnemy()
         float offsetY = (visibleSize.height / 5) * (i % 16);
         enemy->setPosition(Vec2(50, offsetY));
         enemy->getArmature()->setRotationSkewY(180);
+        enemy->setActionState(ACTION_ATTACK);
         this->addChild(enemy, 99);
+        
+        DrawSector *rect = DrawSector::create();
+        rect->drawRectangle(enemy->getPosition(), enemy->getArmature()->getContentSize());
+        this->addChild(rect);
+        
         m_enemyVector.push_back(enemy);
     }
 }
