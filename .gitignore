@@ -1,6 +1,6 @@
 cocos2d/build/cocos2d_libs.xcodeproj/xcuserdata/wangtao.xcuserdatad/
 proj.ios_mac/.DS_Store
-proj.ios_mac/BattleDemo.xcodeproj/project.xcworkspace/xcuserdata/wangtao.xcuserdatad/
-proj.ios_mac/BattleDemo.xcodeproj/xcuserdata/wangtao.xcuserdatad/
+proj.ios_mac/BattleDemo.xcodeproj/project.xcworkspace/xcuserdata/*
+proj.ios_mac/BattleDemo.xcodeproj/xcuserdata/wangtao.xcuserdatad/*
 proj.ios_mac/BattleDemo.xcodeproj/project.pbxproj
 *.DS_Store
